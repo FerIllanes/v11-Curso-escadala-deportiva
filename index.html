@@ -1,0 +1,792 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Curso Básico de Escalada V11</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Josefin+Sans:wght@600;700&display=swap">
+<style>
+/* Layout: one phone-width column; colored module bands (V11 purple / orange) over a pale lavender page, white sheets for content. */
+:root {
+  --bg: #F4F0F7;
+  --surface: #FFFFFF;
+  --ink: #2A2133;
+  --muted: #5B5266;
+  --line: #E1D8EA;
+  --cream: #F2EADA;
+  --cream-ink: #2A2133;
+  --purple: #682383;          /* brand fill (bands, buttons) */
+  --orange: #E06131;          /* brand fill */
+  --purple-text: #682383;     /* accent text on page surfaces */
+  --orange-text: #B4492A;
+  --danger: #C23B3B;
+  --danger-bg: #FBECEC;
+  --ok: #2E7D4F;
+  --ok-bg: #E7F4EC;
+  --on-brand: #FFFFFF;
+  --shadow: 0 1px 2px rgba(42, 33, 51, .06), 0 4px 14px rgba(42, 33, 51, .06);
+  --display: "Josefin Sans", "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15101A; --surface: #211A28; --ink: #F1EAF5; --muted: #B7AAC3; --line: #372C40;
+    --cream: #2D2431; --cream-ink: #F1EAF5;
+    --purple-text: #C79BE0; --orange-text: #F38A5E;
+    --danger: #F08080; --danger-bg: #3A1E22; --ok: #7FD3A1; --ok-bg: #1C3326;
+    --shadow: 0 1px 2px rgba(0,0,0,.4);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15101A; --surface: #211A28; --ink: #F1EAF5; --muted: #B7AAC3; --line: #372C40;
+  --cream: #2D2431; --cream-ink: #F1EAF5;
+  --purple-text: #C79BE0; --orange-text: #F38A5E;
+  --danger: #F08080; --danger-bg: #3A1E22; --ok: #7FD3A1; --ok-bg: #1C3326;
+  --shadow: 0 1px 2px rgba(0,0,0,.4);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 16px; line-height: 1.55;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--band, var(--purple));
+}
+.app { max-width: 520px; margin: 0 auto; min-height: 100%; }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; text-transform: uppercase; text-wrap: balance; margin: 0; letter-spacing: .01em; }
+.eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+
+/* ---------- home ---------- */
+.home-band { background: var(--purple); color: var(--on-brand); position: relative; overflow: hidden; }
+.home-band .wrap { padding-block: 28px 30px; display: grid; gap: 14px; }
+.home-band::after { /* the deck's dot grid */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,.13) 1.1px, transparent 1.3px);
+  background-size: 18px 18px;
+}
+.home-band > * { position: relative; z-index: 1; }
+.logo { width: 92px; height: auto; }
+.home-band .eyebrow { opacity: .85; }
+.home-band h1 { font-size: clamp(38px, 11vw, 52px); line-height: .95; }
+.home-band h1 span { color: #F7A37F; display: block; }
+.home-band p { margin: 0; font-size: 16.5px; max-width: 30ch; opacity: .95; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 6px 10px; border-radius: 3px; border: 1px solid rgba(255,255,255,.6); }
+.tag.solid { background: var(--orange); border-color: var(--orange); }
+
+.progress-line { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); margin: 22px 0 10px; }
+.progress-line .bar { flex: 1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.progress-line .bar i { display: block; height: 100%; background: var(--orange); border-radius: 3px; transition: width .4s; }
+.mod-list { display: grid; gap: 10px; padding-bottom: 28px; margin: 0; list-style: none; padding-left: 0; }
+.mod-card {
+  width: 100%; text-align: left; border: 0; cursor: pointer;
+  display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 12px;
+  background: var(--surface); border-radius: 10px; padding: 14px 14px 14px 12px; box-shadow: var(--shadow);
+}
+.mod-card .n { font-family: var(--display); font-weight: 700; font-size: 30px; line-height: 1; text-align: center; padding-top: 4px; }
+.mod-card.purple .n { color: var(--purple-text); }
+.mod-card.orange .n { color: var(--orange-text); }
+.mod-card .t { min-width: 0; }
+.mod-card .t b { display: block; font-family: var(--display); font-weight: 700; font-size: 17px; text-transform: uppercase; line-height: 1.15; padding-top: 3px; }
+.mod-card .t small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+.mod-card .state { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; }
+.mod-card.done .state { background: var(--ok); border-color: var(--ok); }
+.mod-card.done .state::after { content: ""; width: 9px; height: 5px; border: 2px solid var(--surface); border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px, -1px); }
+.home-foot { color: var(--muted); font-size: 12px; text-align: center; padding-block: 0 28px; letter-spacing: .12em; text-transform: uppercase; }
+
+/* ---------- module ---------- */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--band); color: var(--on-brand);
+}
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 52px; }
+.back { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 8px 4px; cursor: pointer; font-weight: 600; font-size: 15px; color: var(--on-brand); }
+.back svg { width: 18px; height: 18px; }
+.count { font-size: 13px; font-weight: 600; opacity: .85; font-variant-numeric: tabular-nums; }
+.hero { background: var(--band); color: var(--on-brand); position: relative; overflow: hidden; }
+.hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,.13) 1.1px, transparent 1.3px); background-size: 18px 18px;
+}
+.hero .wrap { padding-block: 10px 30px; display: grid; gap: 12px; position: relative; z-index: 1; }
+.hero .big { position: absolute; right: 8px; top: -18px; font-family: var(--display); font-weight: 700; font-size: 150px; line-height: 1; color: rgba(255,255,255,.14); z-index: 0; letter-spacing: -.04em; }
+.hero .eyebrow { opacity: .88; }
+.hero h1 { font-size: clamp(36px, 10.5vw, 48px); line-height: .98; max-width: 11ch; }
+.hero p { margin: 0; font-size: 16.5px; max-width: 32ch; }
+.hero .tag { justify-self: start; background: var(--on-brand); color: var(--band); border: 0; }
+
+.sections { display: grid; gap: 14px; padding-block: 18px 8px; }
+.sec { background: var(--surface); border-radius: 12px; box-shadow: var(--shadow); padding: 20px 18px; display: grid; gap: 14px; min-width: 0; }
+.sec > h2 { font-size: 22px; line-height: 1.1; color: var(--accent-text); }
+.sec .kicker { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: -8px; }
+.sec p { margin: 0; }
+.lead { color: var(--muted); }
+.figure { border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+.figure img { width: 100%; height: auto; }
+.figure figcaption, .cap { font-size: 12px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 600; padding: 8px 10px; background: var(--surface); border-top: 1px solid var(--line); }
+figure { margin: 0; }
+strong, .hl { color: var(--accent-text); font-weight: 700; }
+
+.numlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: n; }
+.numlist li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; }
+.numlist .dot { width: 26px; height: 26px; border-radius: 50%; background: var(--band); color: var(--on-brand); display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 13.5px; padding-top: 2px; }
+.numlist small { display: block; color: var(--muted); font-size: 13px; }
+.numlist.two { grid-template-columns: 1fr 1fr; column-gap: 12px; }
+
+.bullets { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.bullets li { padding-left: 18px; position: relative; }
+.bullets li::before { content: ""; position: absolute; left: 0; top: .55em; border-left: 8px solid var(--band); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+
+.callout { border: 1.5px solid var(--band); border-radius: 10px; padding: 18px 14px 14px; position: relative; margin-top: 8px; }
+.callout .lbl { position: absolute; top: -10px; left: 12px; background: var(--band); color: var(--on-brand); font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+.cream { background: var(--cream); color: var(--cream-ink); border-radius: 10px; padding: 14px; display: grid; gap: 4px; }
+.cream h3 { font-size: 15px; color: var(--accent-text); }
+.cream p { font-size: 14.5px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.stack { display: grid; gap: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip-risk { font-size: 13.5px; font-weight: 600; color: var(--danger); background: var(--danger-bg); border: 1px solid currentColor; border-radius: 999px; padding: 4px 11px; }
+.big-stat { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; background: var(--band); color: var(--on-brand); border-radius: 10px; padding: 14px 16px; }
+.big-stat b { font-family: var(--display); font-size: 40px; line-height: 1; padding-top: 6px; }
+.big-stat span { font-size: 14px; }
+
+/* segmented tabs */
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: var(--bg); border-radius: 10px; padding: 4px; gap: 4px; }
+.seg button { border: 0; background: none; padding: 9px 4px; border-radius: 7px; font-size: 13.5px; font-weight: 600; cursor: pointer; color: var(--muted); }
+.seg button[aria-selected="true"] { background: var(--band); color: var(--on-brand); }
+.seg-panel { display: grid; gap: 6px; }
+.seg-panel .k { font-family: var(--display); font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--accent-text); }
+
+/* rope types */
+.rows { display: grid; gap: 10px; }
+.row { display: grid; grid-template-columns: 58px 1fr; gap: 12px; align-items: start; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.row:last-child { border-bottom: 0; padding-bottom: 0; }
+.sym { font-family: var(--display); font-weight: 700; font-size: 17px; color: var(--accent-text); border: 1.5px solid currentColor; border-radius: 8px; text-align: center; padding: 8px 2px 5px; line-height: 1; }
+.row b { font-family: var(--display); text-transform: uppercase; font-size: 16px; display: block; padding-top: 2px; }
+.row .use { font-size: 13.5px; color: var(--accent-text); font-weight: 600; }
+.row p { font-size: 14.5px; color: var(--muted); }
+
+.stats { display: grid; gap: 10px; }
+.stat { border-radius: 10px; padding: 14px; color: #fff; display: grid; grid-template-columns: 70px 1fr; gap: 12px; align-items: center; }
+.stat b { font-family: var(--display); font-size: 32px; line-height: 1; padding-top: 4px; }
+.stat small { display: block; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; opacity: .9; }
+.stat span { font-size: 14px; }
+.s1 { background: var(--orange); } .s2 { background: var(--purple); } .s3 { background: #12858A; }
+
+.diam { display: grid; gap: 10px; }
+.diam .d { display: grid; grid-template-columns: 54px 1fr; gap: 12px; align-items: center; }
+.diam .ring { justify-self: center; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #F7A37F, var(--orange) 60%); box-shadow: inset 0 0 0 2px rgba(0,0,0,.12); }
+.diam b { font-family: var(--display); text-transform: uppercase; font-size: 16px; display: block; padding-top: 2px; }
+.diam .mm { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent-text); font-size: 14px; }
+.diam p { font-size: 14px; color: var(--muted); }
+
+details.legend { border: 1px solid var(--line); border-radius: 10px; }
+details.legend summary { cursor: pointer; padding: 12px 14px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+details.legend summary::-webkit-details-marker { display: none; }
+details.legend summary::after { content: "+"; font-size: 20px; color: var(--accent-text); line-height: 1; }
+details.legend[open] summary::after { content: "–"; }
+details.legend ul { margin: 0; padding: 0 14px 14px; list-style: none; display: grid; gap: 7px; font-size: 14.5px; }
+details.legend li { display: grid; grid-template-columns: 26px 1fr; gap: 8px; }
+.letter { width: 22px; height: 22px; border-radius: 4px; background: var(--band); color: var(--on-brand); font-weight: 700; font-size: 12px; display: grid; place-items: center; }
+
+.table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.table th { text-align: left; background: var(--band); color: var(--on-brand); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding: 9px 10px; }
+.table td { padding: 10px; border-bottom: 1px solid var(--line); }
+.table td:first-child { font-weight: 700; color: var(--accent-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.table tr.me td { background: var(--cream); }
+.table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--line); }
+
+.shapes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.shape { background: var(--cream); border-radius: 10px; padding: 12px; display: grid; gap: 4px; align-content: start; }
+.shape .badge { width: 26px; height: 26px; border-radius: 50%; background: var(--band); color: var(--on-brand); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.shape b { font-family: var(--display); text-transform: uppercase; font-size: 15px; color: var(--accent-text); padding-top: 4px; }
+.shape p { font-size: 13.5px; }
+
+/* partner check */
+.check { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.check button {
+  width: 100%; text-align: left; cursor: pointer; display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start;
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; padding: 12px;
+  transition: border-color .2s, background-color .2s;
+}
+.check .box { width: 28px; height: 28px; border-radius: 7px; border: 2px solid var(--band); display: grid; place-items: center; }
+.check b { display: block; font-size: 15.5px; }
+.check small { display: block; font-size: 13.5px; color: var(--muted); margin-top: 2px; }
+.check button[aria-pressed="true"] { border-color: var(--ok); background: var(--ok-bg); }
+.check button[aria-pressed="true"] .box { background: var(--ok); border-color: var(--ok); }
+.check button[aria-pressed="true"] .box::after { content: ""; width: 11px; height: 6px; border: 2.5px solid #fff; border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px, -1px); }
+.check-status { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-weight: 600; }
+.check-status .ready { color: var(--ok); }
+.ghost { background: none; border: 1.5px solid var(--line); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; font-weight: 600; cursor: pointer; color: var(--muted); }
+
+/* chain */
+.chain { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chain span { background: var(--cream); color: var(--cream-ink); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 7px 10px; border-radius: 6px; }
+.chain span.key { background: var(--band); color: var(--on-brand); }
+.chain i { color: var(--accent-text); font-style: normal; font-weight: 700; }
+
+/* fall factor calculator */
+.calc { border: 1.5px solid var(--band); border-radius: 12px; padding: 16px 14px; display: grid; gap: 14px; }
+.formula { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+.formula .fc { font-family: var(--display); font-weight: 700; font-size: 26px; color: var(--accent-text); padding-top: 4px; }
+.frac { display: grid; text-align: center; }
+.frac span:first-child { border-bottom: 2px solid var(--accent-text); padding-bottom: 2px; }
+.slider { display: grid; gap: 6px; }
+.slider label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; }
+.slider output { font-variant-numeric: tabular-nums; color: var(--accent-text); }
+input[type=range] { width: 100%; accent-color: var(--band); height: 28px; }
+.result { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; }
+.result .val { font-family: var(--display); font-weight: 700; font-size: 46px; line-height: 1; padding-top: 6px; font-variant-numeric: tabular-nums; min-width: 2.6ch; }
+.gauge { height: 10px; border-radius: 5px; background: linear-gradient(90deg, #3FA66B, #E2B33C 45%, #E06131 75%, #C23B3B); position: relative; }
+.gauge i { position: absolute; top: -5px; width: 4px; height: 20px; background: var(--ink); border-radius: 2px; transform: translateX(-2px); transition: left .25s; }
+.gauge-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.level { font-weight: 700; font-size: 15px; }
+.note { font-size: 13px; color: var(--muted); }
+
+/* stepper */
+.stepper { display: grid; gap: 14px; }
+.step-card { background: var(--band); color: var(--on-brand); border-radius: 12px; padding: 18px 16px; min-height: 170px; display: grid; gap: 10px; align-content: start; position: relative; overflow: hidden; }
+.step-card .sn { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; opacity: .9; }
+.step-card p { font-size: 18px; line-height: 1.45; }
+.voice { justify-self: start; background: var(--on-brand); color: var(--band); font-weight: 700; padding: 6px 12px; border-radius: 14px 14px 14px 3px; font-size: 15px; }
+.dots { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; }
+.dots button { width: 22px; height: 22px; border-radius: 50%; border: 0; background: var(--line); cursor: pointer; font-size: 10.5px; font-weight: 700; color: var(--muted); padding: 0; font-variant-numeric: tabular-nums; }
+.dots button[aria-current="step"] { background: var(--band); color: var(--on-brand); }
+.dots button.seen { background: var(--cream); color: var(--accent-text); }
+.navrow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.btn { border: 0; border-radius: 10px; padding: 13px 14px; font-weight: 700; font-size: 15px; cursor: pointer; background: var(--band); color: var(--on-brand); text-align: center; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.btn.alt { background: var(--cream); color: var(--cream-ink); }
+.btn[disabled] { opacity: .4; cursor: default; }
+.allsteps { margin: 0; padding-left: 22px; display: grid; gap: 6px; font-size: 14.5px; }
+
+/* quiz */
+.quiz { background: var(--surface); border-radius: 12px; box-shadow: var(--shadow); padding: 20px 18px; display: grid; gap: 16px; }
+.quiz h2 { font-size: 20px; color: var(--accent-text); }
+.q { display: grid; gap: 8px; }
+.q p { font-weight: 600; margin: 0; }
+.opt { width: 100%; text-align: left; border: 1.5px solid var(--line); background: var(--surface); border-radius: 9px; padding: 11px 12px; cursor: pointer; font-size: 15px; }
+.opt.right { border-color: var(--ok); background: var(--ok-bg); }
+.opt.wrong { border-color: var(--danger); background: var(--danger-bg); }
+.q .fb { font-size: 14px; color: var(--muted); }
+.q .fb b { color: var(--ink); }
+.score { font-weight: 700; }
+
+.modnav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-block: 18px 30px; }
+.modnav .btn { flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; }
+.modnav .btn small { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .85; font-weight: 600; }
+.modnav .btn span { font-family: var(--display); text-transform: uppercase; font-size: 15px; line-height: 1.15; }
+.modnav .next { grid-column: 2; align-items: flex-end; text-align: right; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+@media (min-width: 560px) { .app { box-shadow: 0 0 0 1px var(--line); } }
+</style>
+
+<div class="app" id="app"></div>
+
+<script>
+(() => {
+const IMG = n => `img/${n}`;
+const VIDEO = "https://drive.google.com/file/d/1e1DTDvR8RwSbIyGrR9UUEtHaXD1UtMxu/view?pli=1";
+
+const fig = (src, cap, alt) => `<figure class="figure"><img src="${IMG(src)}" alt="${alt || cap || ""}" loading="lazy">${cap ? `<figcaption>${cap}</figcaption>` : ""}</figure>`;
+const sec = (title, body, kicker) => `<section class="sec">${kicker ? `<div class="kicker">${kicker}</div>` : ""}<h2>${title}</h2>${body}</section>`;
+const callout = (lbl, body) => `<div class="callout"><span class="lbl">${lbl}</span><p>${body}</p></div>`;
+const cream = (t, b) => `<div class="cream"><h3>${t}</h3><p>${b}</p></div>`;
+const bullets = items => `<ul class="bullets">${items.map(i => `<li>${i}</li>`).join("")}</ul>`;
+const numlist = (items, cls = "") => `<ol class="numlist ${cls}">${items.map((t, i) => `<li><span class="dot">${i + 1}</span><span>${t}</span></li>`).join("")}</ol>`;
+
+const MODULES = [
+  {
+    id: "m1", n: 1, color: "purple", title: "Arnés", sub: "Características y partes", eyebrow: "Equipo personal",
+    lead: "El equipo de protección individual que te conecta a la cuerda y te sostiene de forma segura en la pared.",
+    body: () => [
+      sec("Las 10 partes del arnés",
+        `<p class="lead">Es un <strong>equipo de protección individual</strong> fundamental: conecta al escalador con la cuerda y permite sostenerlo de forma segura.</p>
+        ${fig("arnes.jpg", "Partes del arnés", "Diagrama de un arnés con sus diez partes numeradas")}
+        ${numlist(["Cinturón", "Hebilla de regulación del cinturón", "Trabilla elástica", "Puntos de encordamiento <small>(puentes de unión)</small>", "Anillo de aseguramiento", "Cinta de las perneras", "Hebillas de regulación de las perneras", "Anillos portamaterial", "Anillo trasero <small>(cuerda de izado)</small>", "Elásticos de las perneras"])}`)
+    ],
+    quiz: [
+      { q: "¿Por dónde pasás la cuerda para encordarte?", o: ["Por el anillo de aseguramiento", "Por los dos puntos de encordamiento", "Por un anillo portamaterial"], a: 1, e: "El ocho se pasa por los dos puntos de encordamiento (los puentes de unión)." },
+      { q: "¿Para qué sirve el anillo trasero?", o: ["Para la cuerda de izado", "Para asegurar al compañero", "Para colgar el casco"], a: 0, e: "El anillo trasero se usa para la cuerda de izado." }
+    ]
+  },
+  {
+    id: "m2", n: 2, color: "orange", title: "Cuerda", sub: "Tipos, partes y certificación", eyebrow: "La conexión vital",
+    lead: "Tipos, partes, certificación y criterios para elegir la cuerda correcta según cada actividad.",
+    body: () => [
+      sec("Clasificación principal",
+        `<p class="lead">Las cuerdas se dividen por su <strong>capacidad de elongación</strong> y su propósito de uso.</p>
+        <div class="seg" role="tablist" data-seg="rope">
+          <button role="tab" aria-selected="false" data-i="0">Estáticas</button>
+          <button role="tab" aria-selected="false" data-i="1">Semiestáticas</button>
+          <button role="tab" aria-selected="true" data-i="2">Dinámicas</button>
+        </div>
+        <div class="seg-panel" data-panel="rope" data-i="0" hidden><span class="k">Poca elongación</span><p>Están compuestas por poliamidas poco elásticas y en su fabricación las fibras se disponen en paralelo para evitar el efecto «yo-yo». Se emplean para <strong>elevar o trasladar cargas</strong> y para ascender por ellas con bloqueadores.</p></div>
+        <div class="seg-panel" data-panel="rope" data-i="1" hidden><span class="k">Estiran 3–5 %</span><p>Pensadas para <strong>trabajos verticales</strong>, donde se trabaja suspendido de ellas.</p></div>
+        <div class="seg-panel" data-panel="rope" data-i="2"><span class="k">Absorben la caída</span><p>Pueden <strong>absorber la energía</strong> que genera el impacto de una caída gracias a su capacidad de estiramiento. Esa elongación se logra con poliamidas elásticas y un trenzado en espiral (efecto muelle) en los hilos y hebras del alma.</p><p>Su uso está indicado siempre que haya riesgo de caer desde un punto por encima del aseguramiento. Subir por ellas con bloqueadores es incómodo (efecto de encogimiento y estiramiento) y las camisas se estropean enseguida.</p><p class="lead">Simples · Dobles · Gemelas</p></div>`, "A"),
+      sec("Cuerdas dinámicas según homologación",
+        `<p class="lead">Cuatro categorías según la técnica de escalada y la seguridad requerida.</p>
+        <div class="rows">
+          ${[["(1)", "Simple", "Escalada deportiva, un largo o multipitch", "La más habitual y sencilla. Se utiliza de forma individual."],
+             ["(∞)", "Gemela", "Alpinismo y rápeles largos", "Dos cuerdas que pasan siempre juntas por cada mosquetón. Reparten peso."],
+             ["(½)", "Doble", "Autoprotección, vías alpinas y travesías", "Dos cuerdas alternadas por los mosquetones para reducir el roce. Ideal para cordadas de tres."],
+             ["1·½·∞", "Multitipo", "Polivalencia extrema", "Triple homologación. Versátil, pero puede ser menos duradera o más pesada."]]
+            .map(([s, t, u, d]) => `<div class="row"><span class="sym">${s}</span><div><b>${t}</b><div class="use">${u}</div><p>${d}</p></div></div>`).join("")}
+        </div>`, "B"),
+      sec("Partes de la cuerda",
+        `${fig("cuerda-partes.jpg", "Sección de la cuerda: alma y camisa", "Corte de una cuerda dinámica mostrando funda y alma")}
+        ${bullets([
+          "<strong>Material:</strong> derivados del petróleo (poliamida, poliéster o polipropileno). El fabricante elige la fibra según las características buscadas.",
+          "<strong>El alma (núcleo):</strong> parte interna que soporta casi todo el peso y aporta la elasticidad.",
+          "<strong>La camisa (funda o manto):</strong> tejido exterior que protege el alma de la abrasión, los rayos UV y la suciedad. Más hilos, mejor deslizamiento.",
+          "<strong>Hilo de control:</strong> hilo interno de color que indica el año de fabricación (el código varía según el fabricante)."])}`, "C"),
+      sec("Características y certificación",
+        `<p class="lead">Datos de rendimiento medidos en las pruebas de la UIAA.</p>
+        <div class="stats">
+          <div class="stat s1"><b>≥5</b><div><small>Número de caídas</small><span>Caídas de factor 1,8 que soporta una cuerda simple con 80 kg antes de fallar.</span></div></div>
+          <div class="stat s2"><b>kN</b><div><small>Fuerza de impacto</small><span>Energía transmitida al escalador en la caída. Cuanto menor, más «suave».</span></div></div>
+          <div class="stat s3"><b>mm</b><div><small>Deslizamiento de camisa</small><span>Cuánto se desplaza la funda respecto al alma. Menor valor, más vida útil.</span></div></div>
+        </div>
+        ${callout("Certificación", "Para ser segura, la cuerda debe cumplir la norma <strong>EN 892</strong>, otorgada por la <strong>UIAA</strong> (Federación Internacional de Escalada y Alpinismo).")}`, "D"),
+      sec("Diámetro y peso",
+        `<p class="lead">La elección depende del escenario de uso.</p>
+        <div class="diam">
+          ${[[46, "Anchas", "9,8 – 10,2 mm", "Ideales para <strong>principiantes</strong> y uso intensivo en top rope por su gran durabilidad."],
+             [40, "Medias", "9,4 – 9,7 mm", "El <strong>equilibrio</strong> entre ligereza para encadenar y resistencia para el uso diario."],
+             [34, "Finas", "8,9 – 9,3 mm", "Para escaladores <strong>experimentados</strong>. Requieren mayor atención al asegurar."]]
+            .map(([s, t, mm, d]) => `<div class="d"><span class="ring" style="width:${s}px;height:${s}px"></span><div><b>${t}</b><span class="mm">${mm}</span><p>${d}</p></div></div>`).join("")}
+        </div>`, "E"),
+      sec("Tratamientos especiales y etiqueta",
+        `<div class="stack">
+          ${cream("Dry-cover / Full-dry", "Tratamiento hidrófugo: evita que la cuerda absorba agua y repele polvo y suciedad, prolongando la flexibilidad y la vida útil.")}
+          ${cream("Tecnología Unicore", "Une la funda y el alma para evitar el deslizamiento de la camisa incluso si esta se corta o desgarra.")}
+        </div>
+        ${fig("etiqueta.jpg", "Etiqueta de la cuerda (A–M)", "Etiqueta de una cuerda dinámica con sus campos marcados de la A a la M")}
+        <details class="legend"><summary>Cómo leer la etiqueta</summary><ul>
+          ${[["A", "Conformidad con el reglamento europeo"], ["B", "Nombre del producto"], ["C", "Procedimiento de la cuerda: STD = estándar / U = Unicore"], ["D", "Diámetro"], ["E", "Longitud de la cuerda en metros"], ["F", "Referencias técnicas"], ["G", "UIAA"], ["H", "Símbolo de la cuerda: simple, media, doble"], ["I", "Leé y seguí siempre las advertencias e instrucciones"], ["J", "Número de serie: los 2 últimos dígitos indican el año de fabricación"], ["K", "Nombre y dirección del fabricante"], ["L", "Mes y año de fabricación"], ["M", "Logotipo escaneable"]]
+            .map(([l, t]) => `<li><span class="letter">${l}</span><span>${t}</span></li>`).join("")}
+        </ul></details>`, "F")
+    ],
+    quiz: [
+      { q: "¿Qué tipo de cuerda usás para escalar?", o: ["Estática", "Semiestática", "Dinámica"], a: 2, e: "Solo la dinámica absorbe la energía de una caída desde un punto por encima del aseguramiento." },
+      { q: "¿Qué parte de la cuerda soporta casi todo el peso?", o: ["El alma", "La camisa", "El hilo de control"], a: 0, e: "El alma soporta casi todo el peso y aporta la elasticidad; la camisa la protege." },
+      { q: "¿Qué norma tiene que cumplir una cuerda dinámica?", o: ["EN 12492", "EN 892", "EN 1078"], a: 1, e: "EN 892, otorgada por la UIAA. La EN 12492 es la de los cascos." }
+    ]
+  },
+  {
+    id: "m3", n: 3, color: "purple", title: "Mosquetones", sub: "Materiales, tipos y uso correcto", eyebrow: "Conexiones",
+    lead: "Materiales, partes, tipos por forma y la regla de oro para usarlos con su máxima resistencia.",
+    body: () => [
+      sec("Materiales y partes",
+        `<div class="stack">
+          ${cream("Acero", "Mayor dureza y resistencia al desgaste, pero casi <strong>3 veces más pesado</strong> que el aluminio. De bajo costo.")}
+          ${cream("Aluminio 7075 T6", "El más usado en escalada. El tratamiento T6 le da una dureza <strong>30 veces superior</strong> al aluminio puro, con una resistencia de <strong>54 kN/cm²</strong>. Liviano y muy resistente.")}
+        </div>
+        ${fig("mosqueton-partes.jpg", "Partes señaladas (1–8)", "Mosquetón con sus ocho partes numeradas")}
+        ${numlist(["Cuerpo", "Puerta o gatillo", "Bisagra", "Cierre", "Seguro <small>(casquillo)</small>", "Información", "Eje mayor <small>máxima resistencia</small>", "Eje menor <small>menor resistencia</small>"], "two")}
+        ${fig("mosqueton-seguro.jpg", "Con y sin seguro", "Mosquetones sin seguro (gatillo curvo y recto) y con seguro (pera HMS, forma D, oval)")}`),
+      sec("Tipos por forma",
+        `<p class="lead">Cada forma está pensada para un uso y una resistencia mínima.</p>
+        <div class="shapes">
+          ${[["B", "Tipo D · básico", "El más polivalente y resistente. La carga trabaja alejada del gatillo. Reuniones, exprés y anclajes. <strong>Mín. 20 kN.</strong>"],
+             ["X", "Ovalado", "Simétrico, equilibra la carga. Para poleas y bloqueadores. <strong>No apto</strong> para la cadena de seguridad principal."],
+             ["H", "Pera · HMS", "Forma ancha arriba, para el <strong>nudo dinámico</strong> y frenos tipo cesta. <strong>Mín. 20 kN.</strong>"],
+             ["K", "Vía ferrata", "Mayor resistencia: <strong>25 kN</strong> longitudinal. Abertura de cierre de al menos 21 mm."]]
+            .map(([b, t, d]) => `<div class="shape"><span class="badge">${b}</span><b>${t}</b><p>${d}</p></div>`).join("")}
+        </div>
+        ${fig("mosqueton-tipos-1.jpg", "Por material y cierre", "Tabla de mosquetones oval, D y HMS con y sin seguro")}
+        ${fig("mosqueton-tipos-2.jpg", "Acero, automáticos y con seguro", "Ejemplos de mosquetones de acero, automáticos y con seguro")}`),
+      sec("La regla de oro",
+        `${callout("Regla de oro", "Un mosquetón trabaja correctamente según el <strong>eje mayor</strong>, con el <strong>gatillo cerrado</strong> y el <strong>casquillo bloqueado</strong>.")}
+        <p style="font-weight:600">Situaciones de riesgo a evitar:</p>
+        <div class="chips">${["Gatillo abierto", "Carga en eje menor", "Flexión sobre arista", "Carga multidireccional", "Casquillo dañado"].map(c => `<span class="chip-risk">${c}</span>`).join("")}</div>
+        <div class="big-stat"><b>−70%</b><span>Usarlo de cualquier otra manera reduce su resistencia hasta un 70 %.</span></div>
+        ${fig("regla-oro.jpg", "Fuerzas · posiciones OK / NO", "Mosquetones cargados correctamente y de forma incorrecta")}`)
+    ],
+    quiz: [
+      { q: "¿En qué eje tiene que trabajar el mosquetón?", o: ["Eje mayor", "Eje menor", "Da igual si tiene seguro"], a: 0, e: "En el eje mayor está su máxima resistencia." },
+      { q: "¿Qué forma usás para el nudo dinámico?", o: ["Ovalado", "Pera · HMS", "Vía ferrata"], a: 1, e: "La pera (HMS) tiene la forma ancha arriba pensada para el nudo dinámico." },
+      { q: "¿Cuánto puede perder de resistencia un mosquetón mal usado?", o: ["Hasta un 10 %", "Hasta un 30 %", "Hasta un 70 %"], a: 2, e: "Usarlo fuera de la regla de oro reduce su resistencia hasta un 70 %." }
+    ]
+  },
+  {
+    id: "m4", n: 4, color: "orange", title: "Cascos", sub: "Construcción, normas y ajuste", eyebrow: "Protección",
+    lead: "No solo protege de la caída de piedras: también de golpes contra salientes y de voltearse en una caída.",
+    body: () => [
+      sec("Tipos según su construcción",
+        `<p class="lead">Tres categorías principales en el mercado, según el equilibrio entre peso y durabilidad.</p>
+        <div class="stack">
+          ${cream("Carcasa rígida · robustos · ABS", "Plástico ABS, a veces con almohadilla de poliestireno. Los más <strong>duraderos y resistentes</strong>; ideales para alpinismo clásico y uso prolongado.")}
+          ${cream("Lámina exterior · ligeros · EPS", "Espuma expandida protegida por una fina lámina de policarbonato. Muy populares por su <strong>equilibrio</strong> entre bajo peso y longevidad.")}
+          ${cream("Espuma monobloque · ultraligeros", "Espuma expandida sin carcasa. Para <strong>competición</strong>, esquí de montaña o expediciones donde el peso es crítico; menor vida útil.")}
+        </div>`),
+      sec("Certificaciones y ajuste",
+        `<p class="lead">La homologación tiene que corresponder a la actividad.</p>
+        <div class="table-wrap"><table class="table">
+          <thead><tr><th>Norma CE</th><th>Actividad</th></tr></thead>
+          <tbody>
+            <tr class="me"><td>EN 12492</td><td>Escalada y alpinismo</td></tr>
+            <tr><td>EN 1078</td><td>Ciclismo y skateboard</td></tr>
+            <tr><td>EN 1077</td><td>Esquí y snowboard</td></tr>
+            <tr><td>EN 1385</td><td>Aguas bravas</td></tr>
+            <tr><td>EN 966</td><td>Deportes aéreos</td></tr>
+          </tbody></table></div>
+        <p class="note">Tendencia actual: la <strong>homologación múltiple</strong>, con un solo casco certificado para varias disciplinas.</p>
+        ${bullets([
+          "<strong>Talla y ajuste:</strong> elegí según el perímetro de la cabeza (cm). Debe proteger frente y nuca; mal colocado deja esas zonas expuestas.",
+          "<strong>Ventilación:</strong> debe dejar pasar el aire, pero sin aberturas tan grandes que permitan el impacto directo de un objeto.",
+          "<strong>Diseños específicos:</strong> modelos para mujeres (espacio para el cabello recogido) y niños, muy regulables para acompañar el crecimiento."])}`)
+    ],
+    quiz: [
+      { q: "¿Qué norma corresponde a un casco de escalada?", o: ["EN 1078", "EN 12492", "EN 892"], a: 1, e: "EN 12492 es la de escalada y alpinismo. EN 1078 es ciclismo; EN 892, cuerdas." },
+      { q: "¿Qué tipo de casco es el más duradero?", o: ["Carcasa rígida", "Lámina exterior", "Espuma monobloque"], a: 0, e: "Los de carcasa rígida (ABS) son los más duraderos y resistentes." }
+    ]
+  },
+  {
+    id: "m5", n: 5, color: "purple", title: "Dispositivos de aseguramiento", sub: "Frenado asistido y tubulares", eyebrow: "Dar seguro", short: "Dispositivos",
+    lead: "Sostienen al escalador y controlan el descenso o la caída mediante fricción y ángulos de frenado.",
+    body: () => [
+      sec("Dos grandes familias",
+        `<p class="lead">Se dividen según cómo generan la fuerza de frenado.</p>
+        ${cream("Frenado asistido · escalada deportiva", "Un mecanismo o leva se activa automáticamente para <strong>morder la cuerda</strong> ante una caída repentina, ayudando a bloquearla. Mayor fuerza de choque.")}
+        ${fig("frenos-asistidos.jpg", "Frenado asistido", "Dispositivos de frenado asistido")}
+        ${cream("Manuales o tubulares · clásica y multilargos", "Sin partes móviles: la fuerza de frenado la ejerce la <strong>fricción manual</strong> del asegurador. Mayor capacidad de absorción y menor fuerza de choque.")}
+        ${fig("frenos-tubulares.jpg", "Manuales o tubulares", "Dispositivos tubulares y su uso en reunión")}
+        ${callout("Recomendación", "Leé las instrucciones del fabricante y asesorate sobre su uso. Respetá el rango de diámetro de cuerda aceptado para un buen funcionamiento del dispositivo.")}`)
+    ],
+    quiz: [
+      { q: "¿Qué familia transmite menor fuerza de choque?", o: ["Frenado asistido", "Manuales o tubulares"], a: 1, e: "Los tubulares no tienen partes móviles y absorben más: menor fuerza de choque." },
+      { q: "¿Qué tenés que respetar siempre de un dispositivo?", o: ["El color de la cuerda", "El rango de diámetro de cuerda aceptado", "El largo de la cuerda"], a: 1, e: "Fuera del rango de diámetro el dispositivo puede no frenar bien." }
+    ]
+  },
+  {
+    id: "m6", n: 6, color: "orange", title: "Nudo de encordamiento", sub: "El ocho por chicote", eyebrow: "La unión", short: "Nudo",
+    lead: "El sistema que une firmemente la cuerda al arnés del escalador.",
+    body: () => [
+      sec("El nudo ocho por chicote",
+        `<p class="lead">El estándar universal para encordarse, también llamado <strong>ocho reconstituido</strong>.</p>
+        ${fig("nudo-ocho.jpg", "Nudo ocho por chicote", "Nudo ocho por chicote en una cuerda violeta")}
+        <p>Se usa el nudo ocho porque reúne todo lo que un encordamiento necesita:</p>
+        ${bullets(["<strong>Altamente resistente</strong>", "<strong>Seguro</strong>", "<strong>Fácil de revisar</strong> visualmente", "Su <strong>pérdida de resistencia es baja</strong>"])}`)
+    ],
+    quiz: [
+      { q: "¿Por qué el ocho es el nudo estándar para encordarse?", o: ["Porque es el más rápido de deshacer", "Porque es resistente, seguro y fácil de revisar", "Porque usa menos cuerda"], a: 1, e: "Es resistente, seguro, se revisa a simple vista y pierde poca resistencia." }
+    ]
+  },
+  {
+    id: "m7", n: 7, color: "purple", title: "Partner Check", sub: "Revisión antes de escalar", eyebrow: "Antes de escalar",
+    lead: "La revisión cruzada entre escalador y asegurador antes de cada vía: cinco puntos, siempre, sin excepciones.",
+    body: () => [
+      sec("Antes de escalar",
+        `<p class="lead">Escalador y asegurador se revisan mutuamente. Tocá cada punto a medida que lo verifican.</p>
+        <ul class="check" id="pc">
+          ${[["El arnés está bien puesto", "Cinturón por encima de la cadera, hebillas cerradas y ajustadas, perneras sin retorcer."],
+             ["El nudo está bien hecho", "Ocho por chicote pasado por los dos puntos de encordamiento, bien peinado y con cola suficiente."],
+             ["Sistema de aseguramiento", "Cuerda bien pasada por el dispositivo, mosquetón con seguro cerrado y conectado al anillo ventral."],
+             ["Nudo al final de la cuerda", "Un nudo en el extremo libre impide que la cuerda se escape del dispositivo al descolgar."],
+             ["Casco bien puesto", "Ambos con casco: cubre frente y nuca, ajustado y con la correa abrochada."]]
+            .map(([t, d], i) => `<li><button type="button" aria-pressed="false" data-pc="${i}"><span class="box"></span><span><b>${t}</b><small>${d}</small></span></button></li>`).join("")}
+        </ul>
+        <div class="check-status"><span id="pc-status">0 de 5 verificados</span><button type="button" class="ghost" id="pc-reset">Reiniciar</button></div>
+        ${fig("partner-check.jpg", "La revisión cruzada", "Escalador y asegurador revisándose: arnés, cascos, nudo, sistema de aseguramiento y nudo al final de la cuerda")}`)
+    ],
+    quiz: [
+      { q: "¿Quién hace el Partner Check?", o: ["Solo el asegurador", "Solo el escalador", "Los dos, revisándose mutuamente"], a: 2, e: "Es una revisión cruzada: cada uno revisa al otro antes de cada vía." }
+    ]
+  },
+  {
+    id: "m8", n: 8, color: "orange", title: "Armado de Top Rope", sub: "Escalada en polea", eyebrow: "Escalada en polea", short: "Top Rope",
+    lead: "Un sistema de anclaje seguro en la cima para subir sin riesgo de una caída larga.",
+    body: () => [
+      sec("Cómo funciona",
+        `<p class="lead">Requiere <strong>redundancia</strong> en los anclajes, material resistente y comunicación constante con el asegurador.</p>
+        ${bullets([
+          "<strong>Posición de la cuerda:</strong> va desde el arnés del escalador, sube hasta unos anclajes fijos en la cima (la reunión) y baja hasta el arnés del asegurador.",
+          "<strong>Aseguramiento:</strong> a medida que el escalador sube, el asegurador recoge la cuerda sobrante."])}
+        ${callout("Ventaja clave", "Si el escalador resbala, la cuerda queda tensa de inmediato y <strong>limita la caída a unos pocos centímetros</strong>.")}
+        ${fig("top-rope-descenso.jpg", "Descenso con nudo al final de la cuerda", "Escalador descendiendo en top rope con nudo en el extremo de la cuerda")}
+        ${callout("Redundancia", "La reunión debe armarse con <strong>dos puntos</strong> y mosquetones <strong>opuestos</strong>, triangulando la carga.")}
+        <div class="grid2">
+          ${fig("reunion-1.jpg", "", "Cuerda pasando por la reunión")}
+          ${fig("reunion-2.jpg", "", "Reunión con dos puntos y mosquetones opuestos")}
+        </div>
+        ${fig("redundancia.jpg", "Mosquetones opuestos y triangulación", "Esquema de mosquetones opuestos y reunión triangulada")}
+        <div class="stack">
+          ${cream("Ideal para principiantes", "Sin el peso de la cuerda ni el miedo a grandes caídas: permite concentrarse en la técnica.")}
+          ${cream("Seguridad", "Es el método estándar en muros y vías de escalada deportiva equipadas.")}
+          ${cream("Movimientos difíciles", "Permite probar pasos complejos repetidamente, quedando colgado sin caer al suelo.")}
+        </div>`)
+    ],
+    quiz: [
+      { q: "¿Cómo se arma la reunión?", o: ["Con un punto y un mosquetón con seguro", "Con dos puntos y mosquetones opuestos", "Con la cuerda pasada directo por la chapa"], a: 1, e: "Redundancia: dos puntos y mosquetones opuestos, triangulando la carga." },
+      { q: "En top rope, si el escalador resbala…", o: ["Cae hasta el último seguro", "La caída se limita a unos pocos centímetros", "El asegurador tiene que dar cuerda"], a: 1, e: "La cuerda queda tensa de inmediato desde arriba." }
+    ]
+  },
+  {
+    id: "m9", n: 9, color: "purple", title: "Escalada de primero", sub: "Cadena dinámica y factor de caída", eyebrow: "Ir adelante",
+    lead: "El escalador progresa equipando y clipando la cuerda en los seguros de la vía, mientras su compañero le da seguro.",
+    body: () => [
+      sec("El escalador y su asegurador",
+        `<p class="lead">La cuerda cuelga del arnés hacia el suelo y el asegurador va dando cuerda a medida que el escalador la necesita.</p>
+        ${bullets([
+          "<strong>Equipar:</strong> colocar las cintas exprés en los seguros fijos (chapas) de la vía.",
+          "<strong>Clipar:</strong> pasar la cuerda por el mosquetón de la cinta exprés ya colocada.",
+          "<strong>Caída:</strong> recién se detiene cuando la cuerda se tensa en el último seguro chapado.",
+          "<strong>Final de vía:</strong> poner una exprés en la argolla más alta, clipar y pedir tensión."])}
+        ${callout("El asegurador", "En línea recta debajo del escalador, atento a sus movimientos. Sujeta la cuerda <strong>con las dos manos</strong> y está listo para detener una caída con un pequeño salto hacia arriba.")}
+        <div class="chips"><span class="chip-risk">Inactivo = peligroso</span><span class="chip-risk">Alejado de la pared = sin control</span></div>
+        ${fig("cinta-expres.jpg", "Orientación de la cinta exprés", "Cinta exprés bien y mal colocada, y cómo puede abrirse el mosquetón")}`),
+      sec("Cadena dinámica",
+        `<p class="lead">Todos los elementos que absorben la energía de una caída: la <strong>fuerza de choque</strong>.</p>
+        <div class="chain"><span>Anclaje</span><i>+</i><span>Mosquetón y cinta</span><i>+</i><span class="key">Cuerda</span><i>+</i><span>Freno / reunión</span><i>+</i><span>Nudo</span><i>+</i><span>Arnés</span></div>
+        <p>De todos, el elemento más importante para absorber la energía es la <strong>cuerda</strong>.</p>`),
+      sec("Factor de caída",
+        `<div class="calc">
+          <div class="formula"><span class="fc">FC =</span><span class="frac"><span>altura de la caída</span><span>longitud de cuerda activa</span></span></div>
+          <div class="slider"><label for="ff-h">Altura de la caída <output id="ff-h-o">4 m</output></label><input type="range" id="ff-h" min="0.5" max="20" step="0.5" value="4"></div>
+          <div class="slider"><label for="ff-l">Cuerda activa <output id="ff-l-o">10 m</output></label><input type="range" id="ff-l" min="1" max="30" step="0.5" value="10"></div>
+          <div class="result"><span class="val" id="ff-v">0,4</span><div><div class="gauge"><i id="ff-g"></i></div><div class="gauge-scale"><span>0</span><span>0,5</span><span>1</span><span>1,5</span><span>2</span></div><div class="level" id="ff-t"></div></div></div>
+          <p class="note" id="ff-n">Mové los controles para comparar caídas.</p>
+        </div>
+        <div class="big-stat"><b>0–2</b><span><b style="font-size:15px;font-family:var(--body)">2 es el más peligroso:</b> se da cuando el escalador cae sin haber colocado ningún seguro después de la reunión.</span></div>
+        ${fig("factor-caida.jpg", "Ejemplos: FC = 0,4 vs FC = 2", "Dos caídas de 4 m: con 10 m de cuerda activa (factor 0,4) y con 2 m (factor 2)")}`)
+    ],
+    quiz: [
+      { q: "Caés 4 m con 10 m de cuerda activa. ¿Qué factor de caída es?", o: ["0,4", "2", "4"], a: 0, e: "4 ÷ 10 = 0,4. Es el ejemplo suave de la ilustración." },
+      { q: "¿Qué elemento de la cadena absorbe más energía?", o: ["El arnés", "El nudo", "La cuerda"], a: 2, e: "La cuerda dinámica es el elemento más importante para absorber la energía." },
+      { q: "¿Dónde se ubica el asegurador?", o: ["Lejos de la pared, para ver mejor", "En línea recta debajo del escalador", "Al costado de la vía"], a: 1, e: "Alejado de la pared pierde el control de la cuerda." }
+    ]
+  },
+  {
+    id: "m10", n: 10, color: "orange", title: "Maniobra de descuelgue", sub: "Paso a paso", eyebrow: "Maniobra", short: "Descuelgue", tag: "Equipo: 3 exprés + mosquetón con seguro",
+    lead: "El procedimiento paso a paso para descolgarse de forma segura al final de la vía.",
+    body: () => [
+      sec("Paso a paso",
+        `<p class="lead">Equipo necesario: <strong>3 exprés</strong> y un <strong>mosquetón con seguro</strong>.</p>
+        <div class="stepper">
+          <div class="step-card" id="st-card" aria-live="polite"></div>
+          <div class="dots" id="st-dots"></div>
+          <div class="navrow"><button type="button" class="btn alt" id="st-prev">Anterior</button><button type="button" class="btn" id="st-next">Siguiente</button></div>
+        </div>
+        <details class="legend"><summary>Ver todos los pasos</summary><ol class="allsteps" id="st-all"></ol></details>
+        <a class="btn" href="${VIDEO}" target="_blank" rel="noopener">Ver el video de la maniobra <span aria-hidden="true">↗</span></a>`)
+    ],
+    quiz: [
+      { q: "¿Qué pedís justo después de sacar el ocho por seno y el mosquetón?", o: ["«¡Viene cuerda!»", "«Tensión»", "«¡Voy!»"], a: 1, e: "Primero pedís tensión; recién después sacás los elementos avisando «¡Voy!»." },
+      { q: "¿En qué orden sacás los elementos de la reunión?", o: ["De lo más a lo menos importante", "De lo menos a lo más importante", "Todos a la vez"], a: 1, e: "De lo menos a lo más importante, para quedar siempre protegido." }
+    ]
+  }
+];
+
+const STEPS = [
+  ["Chapo y clipo."],
+  ["Back-up al mosquetón de la cinta principal desde la anilla secundaria."],
+  ["Vinculo mi anilla ventral con una exprés a la cinta."],
+  ["Pido 2 metros de cuerda, tomándola desde el nudo ocho reconstituido."],
+  ["Hago un ocho por seno (nudo provisorio) y lo vinculo con un mosquetón con seguro a mi anilla ventral."],
+  ["Descoso el ocho reconstituido, paso esa punta por las anillas y rehago el ocho por los dos puntos de encordamiento."],
+  ["Saco el ocho por seno y el mosquetón."],
+  ["Pido tensión.", "«Tensión»"],
+  ["Saco los elementos de lo menos a lo más importante.", "«¡Voy!»"],
+  ["Recupero las cintas de la vía."],
+  ["En el suelo deshago el ocho reconstituido y traigo la cuerda.", "«¡Viene cuerda!»"]
+];
+
+// ---------- storage (per-viewer convenience only) ----------
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("v11:" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("v11:" + k, JSON.stringify(v)); } catch (e) {} }
+};
+let seen = new Set(store.get("seen", []));
+
+const app = document.getElementById("app");
+const pad2 = n => String(n).padStart(2, "0");
+const backIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>`;
+
+function setBand(color) {
+  const v = color === "orange" ? "var(--orange)" : "var(--purple)";
+  const t = color === "orange" ? "var(--orange-text)" : "var(--purple-text)";
+  document.documentElement.style.setProperty("--band", v);
+  document.documentElement.style.setProperty("--accent-text", t);
+}
+
+function renderHome() {
+  setBand("purple");
+  const done = MODULES.filter(m => seen.has(m.id)).length;
+  app.innerHTML = `
+    <header class="home-band"><div class="wrap">
+      <img class="logo" src="${IMG("logo.png")}" alt="V11 Club de Escalada">
+      <span class="eyebrow">Material de formación</span>
+      <h1>Curso básico <span>de escalada</span></h1>
+      <p>Equipo, técnicas y maniobras esenciales para moverte en la pared con seguridad.</p>
+      <div class="tags"><span class="tag solid">10 módulos</span><span class="tag">Nivel inicial</span></div>
+    </div></header>
+    <main class="wrap">
+      <div class="progress-line"><span>${done} de 10 módulos vistos</span><span class="bar"><i style="width:${done * 10}%"></i></span></div>
+      <ol class="mod-list">
+        ${MODULES.map(m => `<li><button type="button" class="mod-card ${m.color} ${seen.has(m.id) ? "done" : ""}" data-go="${m.id}">
+          <span class="n">${m.n}</span><span class="t"><b>${m.title}</b><small>${m.sub}</small></span>
+          <span class="state" aria-label="${seen.has(m.id) ? "Visto" : "Sin ver"}"></span></button></li>`).join("")}
+      </ol>
+    </main>
+    <div class="home-foot wrap">V11 · Club de escalada</div>`;
+}
+
+function renderModule(m) {
+  setBand(m.color);
+  const i = MODULES.indexOf(m), prev = MODULES[i - 1], next = MODULES[i + 1];
+  seen.add(m.id); store.set("seen", [...seen]);
+  app.innerHTML = `
+    <div class="topbar"><div class="wrap">
+      <button type="button" class="back" data-go="inicio">${backIcon}Módulos</button>
+      <span class="count">${m.n} / 10</span>
+    </div></div>
+    <header class="hero">
+      <span class="big" aria-hidden="true">${m.n}</span>
+      <div class="wrap">
+        <span class="eyebrow">Módulo ${pad2(m.n)} · ${m.eyebrow}</span>
+        <h1>${m.title}</h1>
+        <p>${m.lead}</p>
+        ${m.tag ? `<span class="tag">${m.tag}</span>` : ""}
+      </div>
+    </header>
+    <main class="wrap">
+      <div class="sections">${m.body().join("")}</div>
+      <nav class="modnav" aria-label="Otros módulos">
+        ${prev ? `<button type="button" class="btn alt" data-go="${prev.id}"><small>← Módulo ${prev.n}</small><span>${prev.short || prev.title}</span></button>` : ""}
+        ${next ? `<button type="button" class="btn next" data-go="${next.id}"><small>Módulo ${next.n} →</small><span>${next.short || next.title}</span></button>`
+               : `<button type="button" class="btn next" data-go="inicio"><small>Curso completo</small><span>Volver al inicio</span></button>`}
+      </nav>
+    </main>`;
+  wireModule(m);
+}
+
+function quizHTML(m) {
+  if (!m.quiz) return "";
+  return `<section class="quiz" data-quiz><h2>Repasá el módulo</h2>
+    ${m.quiz.map((q, qi) => `<div class="q" data-q="${qi}"><p>${qi + 1}. ${q.q}</p>
+      ${q.o.map((o, oi) => `<button type="button" class="opt" data-o="${oi}">${o}</button>`).join("")}
+      <div class="fb" hidden></div></div>`).join("")}
+    <div class="score" hidden></div></section>`;
+}
+
+function wireModule(m) {
+  // segmented tabs
+  app.querySelectorAll("[data-seg]").forEach(seg => {
+    const name = seg.dataset.seg;
+    seg.addEventListener("click", e => {
+      const b = e.target.closest("button"); if (!b) return;
+      seg.querySelectorAll("button").forEach(x => x.setAttribute("aria-selected", x === b));
+      app.querySelectorAll(`[data-panel="${name}"]`).forEach(p => p.hidden = p.dataset.i !== b.dataset.i);
+    });
+  });
+  // quiz
+  const quiz = app.querySelector("[data-quiz]");
+  if (quiz) {
+    let right = 0, answered = 0;
+    quiz.addEventListener("click", e => {
+      const b = e.target.closest(".opt"); if (!b) return;
+      const qd = b.closest(".q"); if (qd.dataset.done) return;
+      const q = m.quiz[+qd.dataset.q], pick = +b.dataset.o;
+      qd.dataset.done = 1; answered++;
+      qd.querySelectorAll(".opt").forEach((o, oi) => { if (oi === q.a) o.classList.add("right"); else if (oi === pick) o.classList.add("wrong"); o.setAttribute("aria-disabled", "true"); });
+      const ok = pick === q.a; if (ok) right++;
+      const fb = qd.querySelector(".fb"); fb.hidden = false;
+      fb.innerHTML = `<b>${ok ? "Correcto." : "No es esa."}</b> ${q.e}`;
+      if (answered === m.quiz.length) { const s = quiz.querySelector(".score"); s.hidden = false; s.textContent = `Resultado: ${right} de ${m.quiz.length}`; }
+    });
+  }
+  if (m.id === "m7") wirePartnerCheck();
+  if (m.id === "m9") wireFallFactor();
+  if (m.id === "m10") wireStepper();
+}
+
+function wirePartnerCheck() {
+  const list = document.getElementById("pc"), status = document.getElementById("pc-status");
+  const upd = () => {
+    const n = list.querySelectorAll('[aria-pressed="true"]').length;
+    status.innerHTML = n === 5 ? `<span class="ready">Listos para escalar</span>` : `${n} de 5 verificados`;
+  };
+  list.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") !== "true"); upd();
+  });
+  document.getElementById("pc-reset").addEventListener("click", () => { list.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", "false")); upd(); });
+}
+
+function wireFallFactor() {
+  const h = document.getElementById("ff-h"), l = document.getElementById("ff-l");
+  const fmt = v => v.toLocaleString("es-AR", { maximumFractionDigits: 1 });
+  const upd = () => {
+    const H = +h.value, L = +l.value;
+    let fc = H / L, capped = false;
+    if (fc > 2) { fc = 2; capped = true; }
+    document.getElementById("ff-h-o").textContent = fmt(H) + " m";
+    document.getElementById("ff-l-o").textContent = fmt(L) + " m";
+    document.getElementById("ff-v").textContent = fc.toLocaleString("es-AR", { maximumFractionDigits: 2 });
+    document.getElementById("ff-g").style.left = (fc / 2 * 100) + "%";
+    const lvl = fc < 0.5 ? ["Caída suave", "var(--ok)"] : fc < 1 ? ["Caída moderada", "var(--ink)"] : fc < 1.5 ? ["Caída fuerte", "var(--orange-text)"] : ["Caída muy fuerte", "var(--danger)"];
+    const t = document.getElementById("ff-t"); t.textContent = lvl[0]; t.style.color = lvl[1];
+    document.getElementById("ff-n").textContent = capped
+      ? "En escalada el factor no supera 2: no podés caer más del doble de la cuerda que tenés afuera."
+      : "Misma altura de caída, más cuerda activa = caída más suave.";
+  };
+  h.addEventListener("input", upd); l.addEventListener("input", upd); upd();
+}
+
+function wireStepper() {
+  let i = 0; const seenSteps = new Set([0]);
+  const card = document.getElementById("st-card"), dots = document.getElementById("st-dots");
+  const prev = document.getElementById("st-prev"), next = document.getElementById("st-next");
+  document.getElementById("st-all").innerHTML = STEPS.map(([t, v]) => `<li>${t}${v ? ` <strong>${v}</strong>` : ""}</li>`).join("");
+  dots.innerHTML = STEPS.map((_, k) => `<button type="button" data-k="${k}" aria-label="Paso ${k + 1}">${k + 1}</button>`).join("");
+  const draw = () => {
+    const [t, v] = STEPS[i];
+    card.innerHTML = `<span class="sn">Paso ${i + 1} de ${STEPS.length}</span><p>${t}</p>${v ? `<span class="voice">Voz: ${v}</span>` : ""}`;
+    dots.querySelectorAll("button").forEach((b, k) => { b.toggleAttribute("aria-current", k === i); if (k === i) b.setAttribute("aria-current", "step"); b.classList.toggle("seen", seenSteps.has(k) && k !== i); });
+    prev.disabled = i === 0;
+    next.textContent = i === STEPS.length - 1 ? "Empezar de nuevo" : "Siguiente";
+  };
+  prev.addEventListener("click", () => { if (i > 0) { i--; draw(); } });
+  next.addEventListener("click", () => { i = i === STEPS.length - 1 ? 0 : i + 1; seenSteps.add(i); draw(); });
+  dots.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; i = +b.dataset.k; seenSteps.add(i); draw(); });
+  // swipe on the card
+  let x0 = null;
+  card.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+  card.addEventListener("touchend", e => {
+    if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (dx < -40 && i < STEPS.length - 1) { i++; seenSteps.add(i); draw(); }
+    else if (dx > 40 && i > 0) { i--; draw(); }
+  });
+  draw();
+}
+
+// ---------- routing ----------
+function route() {
+  const id = (location.hash || "").replace("#", "");
+  const m = MODULES.find(x => x.id === id);
+  if (m) renderModule(m); else renderHome();
+  window.scrollTo(0, 0);
+}
+app.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]"); if (!g) return;
+  const id = g.dataset.go;
+  if (id === "inicio") { if (location.hash) history.pushState(null, "", location.pathname + location.search); route(); }
+  else if (location.hash !== "#" + id) location.hash = id; else route();
+});
+window.addEventListener("hashchange", route);
+window.addEventListener("popstate", route);
+route();
+})();
+</script>
+
+</body></html>
