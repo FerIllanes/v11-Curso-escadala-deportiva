@@ -484,27 +484,53 @@ const MODULES = [
   },
   {
     id: "m7", n: 7, color: "purple", title: "Partner Check", sub: "Revisión antes de escalar", eyebrow: "Antes de escalar",
-    lead: "La revisión cruzada entre escalador y asegurador antes de cada vía: cinco puntos, siempre, sin excepciones.",
+    lead: "La revisión cruzada entre escalador y asegurador antes de cada vía: siete puntos, siempre, sin excepciones.",
     body: () => [
       sec("Antes de escalar",
         `<p class="lead">Escalador y asegurador se revisan mutuamente. Tocá cada punto a medida que lo verifican.</p>
         <ul class="check" id="pc">
-          ${[["El arnés está bien puesto", "Cinturón por encima de la cadera, hebillas cerradas y ajustadas, perneras sin retorcer."],
-             ["El nudo está bien hecho", "Ocho por chicote pasado por los dos puntos de encordamiento, bien peinado y con cola suficiente."],
-             ["Sistema de aseguramiento", "Cuerda bien pasada por el dispositivo, mosquetón con seguro cerrado y conectado al anillo ventral."],
-             ["Nudo al final de la cuerda", "Un nudo en el extremo libre impide que la cuerda se escape del dispositivo al descolgar."],
-             ["Casco bien puesto", "Ambos con casco: cubre frente y nuca, ajustado y con la correa abrochada."]]
+          ${[["Casco", "Escalador y asegurador, los dos con casco."],
+             ["Arnés", "Escalador y asegurador, los dos con el arnés bien puesto."],
+             ["Nudo 8", "Pasado por los dos puntos de encordadura, 8 reconstituido y bien peinado."],
+             ["Sistema de aseguramiento", "Cuerda bien pasada, del lado del escalador y del asegurador."],
+             ["Mosquetón con seguro", "Cerrado y vinculado a la anilla ventral."],
+             ["Nudo no corredizo al final de la cuerda", "8 por seno o pescador doble."],
+             ["Calzado", "Pédulas para escalar; calzado cómodo que cubra los dedos para asegurar."]]
             .map(([t, d], i) => `<li><button type="button" aria-pressed="false" data-pc="${i}"><span class="box"></span><span><b>${t}</b><small>${d}</small></span></button></li>`).join("")}
         </ul>
-        <div class="check-status"><span id="pc-status">0 de 5 verificados</span><button type="button" class="ghost" id="pc-reset">Reiniciar</button></div>
-        ${fig("partner-check.jpg", "La revisión cruzada", "Escalador y asegurador revisándose: arnés, cascos, nudo, sistema de aseguramiento y nudo al final de la cuerda")}`)
+        <div class="check-status"><span id="pc-status">0 de 7 verificados</span><button type="button" class="ghost" id="pc-reset">Reiniciar</button></div>
+        ${fig("partner-check.png", "La revisión cruzada", "Escalador y asegurador revisándose: arnés, cascos, nudo, sistema de aseguramiento y nudo al final de la cuerda")}`)
     ],
     quiz: [
       { q: "¿Quién hace el Partner Check?", o: ["Solo el asegurador", "Solo el escalador", "Los dos, revisándose mutuamente"], a: 2, e: "Es una revisión cruzada: cada uno revisa al otro antes de cada vía." }
     ]
   },
   {
-    id: "m8", n: 8, color: "orange", title: "Armado de Top Rope", sub: "Escalada en polea", eyebrow: "Escalada en polea", short: "Top Rope",
+    id: "dif", n: 8, color: "orange", title: "Diferencias entre Top rope y Lead", sub: "Cuerda superior vs. escalada de primero", eyebrow: "Dos formas de escalar", short: "Top rope vs. Lead",
+    lead: "Dos maneras de escalar con cuerda: con la cuerda ya instalada arriba, o llevándola vos mismo a medida que subís.",
+    body: () => [
+      sec("Top Rope (cuerda superior)",
+        `${fig("top-rope.jpg", "Top rope", "Escalador en top rope con la cuerda instalada en el anclaje de arriba")}
+        ${bullets([
+          "<strong>Cómo funciona:</strong> la cuerda ya está instalada en un anclaje en la parte más alta de la vía. Baja desde arriba hasta el escalador y, del otro lado, va hacia el asegurador en el suelo.",
+          "<strong>Caídas:</strong> son muy cortas y suaves; si te soltás o caés, el asegurador te sostiene casi al instante porque la cuerda ya está tensa arriba.",
+          "<strong>Nivel:</strong> es la forma más segura y recomendada para principiantes.",
+          "<strong>Libertad de movimiento:</strong> menor; la cuerda viene directo de arriba, lo que puede tirarte ligeramente o limitar ciertos recorridos laterales muy marcados."])}`),
+      sec("Lead (escalada de primero de cordada)",
+        `${fig("lead.jpg", "Lead", "Escalador de primero pasando la cuerda por las cintas exprés")}
+        ${bullets([
+          "<strong>Cómo funciona:</strong> subís con la cuerda atada a tu arnés y vos mismo la vas pasando por cintas exprés (anclajes) que están fijadas a la pared a medida que vas avanzando.",
+          "<strong>Caídas:</strong> son más largas y dinámicas. Si caés, lo hacés desde por encima de la última cinta exprés que aseguraste, por lo que podés caer el doble de la distancia que te separa de ese seguro.",
+          "<strong>Nivel:</strong> requiere más experiencia, técnica, resistencia física y control mental.",
+          "<strong>Libertad de movimiento:</strong> total; te permite escalar desplomes, techos y rutas complejas donde la cuerda no está colgando desde el inicio."])}`)
+    ],
+    quiz: [
+      { q: "¿Cuál es la forma más recomendada para principiantes?", o: ["Lead", "Top rope", "Las dos por igual"], a: 1, e: "En top rope la cuerda ya está tensa arriba: las caídas son muy cortas y suaves." },
+      { q: "En lead, estás 2 m por encima de tu última cinta exprés. ¿Cuánto podés caer?", o: ["Unos centímetros", "2 m", "Unos 4 m"], a: 2, e: "Caés el doble de la distancia que te separa del último seguro." }
+    ]
+  },
+  {
+    id: "m8", n: 9, color: "purple", title: "Armado de Top Rope", sub: "Escalada en polea", eyebrow: "Escalada en polea", short: "Top Rope",
     lead: "Un sistema de anclaje seguro en la cima para subir sin riesgo de una caída larga.",
     body: () => [
       sec("Cómo funciona",
@@ -532,7 +558,7 @@ const MODULES = [
     ]
   },
   {
-    id: "m9", n: 9, color: "purple", title: "Escalada de primero", sub: "Cadena dinámica y factor de caída", eyebrow: "Ir adelante",
+    id: "m9", n: 10, color: "orange", title: "Escalada de primero", sub: "Cadena dinámica y factor de caída", eyebrow: "Ir adelante",
     lead: "El escalador progresa equipando y clipando la cuerda en los seguros de la vía, mientras su compañero le da seguro.",
     body: () => [
       sec("El escalador y su asegurador",
@@ -567,7 +593,7 @@ const MODULES = [
     ]
   },
   {
-    id: "m10", n: 10, color: "orange", title: "Maniobra de descuelgue", sub: "Paso a paso", eyebrow: "Maniobra", short: "Descuelgue", tag: "Equipo: 3 exprés + mosquetón con seguro",
+    id: "m10", n: 11, color: "purple", title: "Maniobra de descuelgue", sub: "Paso a paso", eyebrow: "Maniobra", short: "Descuelgue", tag: "Equipo: 3 exprés + mosquetón con seguro",
     lead: "El procedimiento paso a paso para descolgarse de forma segura al final de la vía.",
     body: () => [
       sec("Paso a paso",
@@ -583,6 +609,19 @@ const MODULES = [
     quiz: [
       { q: "¿Qué pedís justo después de sacar el ocho por seno y el mosquetón?", o: ["«¡Viene cuerda!»", "«Tensión»", "«¡Voy!»"], a: 1, e: "Primero pedís tensión; recién después sacás los elementos avisando «¡Voy!»." },
       { q: "¿En qué orden sacás los elementos de la reunión?", o: ["De lo más a lo menos importante", "De lo menos a lo más importante", "Todos a la vez"], a: 1, e: "De lo menos a lo más importante, para quedar siempre protegido." }
+    ]
+  },
+  {
+    id: "links", n: 12, color: "orange", title: "Links útiles", sub: "Videos y material extra", eyebrow: "Para seguir aprendiendo",
+    lead: "Videos recomendados para repasar y profundizar lo que vimos en el curso.",
+    body: () => [
+      sec("Videos",
+        `<div class="stack">
+          ${[["Video oficial Petzl: Cómo clipar", "https://www.instagram.com/reel/DYNE1lYjLKJ/"],
+             ["Video oficial Petzl: Cómo dar seguro con GriGri", "https://www.instagram.com/tv/Cazj587DxU7/"],
+             ["Video v-once: Uso del GriGri", "https://www.instagram.com/reel/DYm1_YUNDvK/"]]
+            .map(([t, url]) => `<a class="btn" href="${url}" target="_blank" rel="noopener">${t} <span aria-hidden="true">↗</span></a>`).join("")}
+        </div>`)
     ]
   }
 ];
@@ -628,10 +667,10 @@ function renderHome() {
       <span class="eyebrow">Material de formación</span>
       <h1>Curso básico <span>de escalada</span></h1>
       <p>Equipo, técnicas y maniobras esenciales para moverte en la pared con seguridad.</p>
-      <div class="tags"><span class="tag solid">10 módulos</span><span class="tag">Nivel inicial</span></div>
+      <div class="tags"><span class="tag solid">${MODULES.length} módulos</span><span class="tag">Nivel inicial</span></div>
     </div></header>
     <main class="wrap">
-      <div class="progress-line"><span>${done} de 10 módulos vistos</span><span class="bar"><i style="width:${done * 10}%"></i></span></div>
+      <div class="progress-line"><span>${done} de ${MODULES.length} módulos vistos</span><span class="bar"><i style="width:${done / MODULES.length * 100}%"></i></span></div>
       <ol class="mod-list">
         ${MODULES.map(m => `<li><button type="button" class="mod-card ${m.color} ${seen.has(m.id) ? "done" : ""}" data-go="${m.id}">
           <span class="n">${m.n}</span><span class="t"><b>${m.title}</b><small>${m.sub}</small></span>
@@ -648,7 +687,7 @@ function renderModule(m) {
   app.innerHTML = `
     <div class="topbar"><div class="wrap">
       <button type="button" class="back" data-go="inicio">${backIcon}Módulos</button>
-      <span class="count">${m.n} / 10</span>
+      <span class="count">${m.n} / ${MODULES.length}</span>
     </div></div>
     <header class="hero">
       <span class="big" aria-hidden="true">${m.n}</span>
@@ -714,7 +753,7 @@ function wirePartnerCheck() {
   const list = document.getElementById("pc"), status = document.getElementById("pc-status");
   const upd = () => {
     const n = list.querySelectorAll('[aria-pressed="true"]').length;
-    status.innerHTML = n === 5 ? `<span class="ready">Listos para escalar</span>` : `${n} de 5 verificados`;
+    status.innerHTML = n === 7 ? `<span class="ready">Listos para escalar</span>` : `${n} de 7 verificados`;
   };
   list.addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
